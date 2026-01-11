@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-cairo: 'Cairo', sans-serif;
+    --font-tajawal: 'Tajawal', sans-serif;
+    --background: #0a0a0a;
+    --foreground: #ffffff;
+    /* Saudi Colors */
+    --saudi-green: #006C35;
+    --saudi-gold: #C9A227;
+    --saudi-cream: #F5E6D3;
+  }
+
+  * {
+    @apply border-gray-800;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#0a0a0a] text-white;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom Scrollbar - Saudi Green */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-emerald-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-emerald-500;
+  }
+
+  /* Selection - Saudi Green */
+  ::selection {
+    @apply bg-emerald-600/30 text-emerald-100;
+  }
+}
+
+@layer utilities {
+  /* Text Gradient - Saudi Theme */
+  .text-gradient {
+    @apply bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-saudi {
+    @apply bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 bg-clip-text text-transparent;
+  }
+
+  /* Glass Effect */
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-xl border border-white/5;
+  }
+
+  /* Glow Effects - Saudi Theme */
+  .glow-green {
+    box-shadow: 0 0 40px rgba(0, 108, 53, 0.3);
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 40px rgba(201, 162, 39, 0.3);
+  }
+
+  /* Hover Glow */
+  .hover-glow-green:hover {
+    box-shadow: 0 0 50px rgba(0, 108, 53, 0.4);
+  }
+
+  /* Border Gradient - Saudi Theme */
+  .border-gradient {
+    position: relative;
+    background: linear-gradient(135deg, #0a0a0a, #0a1a0f);
+    border-radius: 1rem;
+  }
+
+  .border-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 108, 53, 0.5), rgba(201, 162, 39, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  /* Animated Gradient Background */
+  .animated-gradient {
+    background: linear-gradient(
+      -45deg,
+      #0a0a0a,
+      #1a1a2e,
+      #2e1a2e,
+      #1a2e1a,
+      #0a0a0a
+    );
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Floating Animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Pulse Glow */
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.6); }
+  }
+
+  /* Shine Effect */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    transform: rotate(30deg);
+    animation: shine 3s ease-in-out infinite;
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+  }
+
+  /* Slide In Animations */
+  .animate-in {
+    animation: animate-in 0.3s ease-out forwards;
+  }
+
+  .slide-in-from-bottom-5 {
+    --tw-enter-translate-y: 1.25rem;
+  }
+
+  .slide-in-from-top-5 {
+    --tw-enter-translate-y: -1.25rem;
+  }
+
+  @keyframes animate-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--tw-enter-translate-y, 0));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Grid Pattern */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Dot Pattern */
+  .dot-pattern {
+    background-image: radial-gradient(rgba(124, 58, 237, 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* No Scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] .flip-rtl {
+    transform: scaleX(-1);
+  }
+
+  /* Font Families */
+  .font-cairo {
+    font-family: var(--font-cairo), sans-serif;
+  }
+
+  .font-tajawal {
+    font-family: var(--font-tajawal), sans-serif;
+  }
+}
+
+/* Custom Animation Delays */
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+.animation-delay-700 { animation-delay: 700ms; }
+.animation-delay-1000 { animation-delay: 1000ms; }
+
+/* React Icons Fix */
+svg {
+  vertical-align: middle;
+}
+
+/* Form Focus Styles */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* Smooth Image Loading */
+img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img.loaded,
+img:not([loading="lazy"]) {
+  opacity: 1;
+}
+
+/* Hero Section Background - Saudi Theme */
+.hero-gradient {
+  background: 
+    radial-gradient(ellipse at top, rgba(0, 108, 53, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(201, 162, 39, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a0a 0%, #0a1510 100%);
+}
+
+/* Grid Pattern - Saudi Green */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 108, 53, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 108, 53, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Saudi Pattern - Traditional Geometric */
+.saudi-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23006C35' fill-opacity='0.05'%3E%3Cpath d='M30 0L60 30L30 60L0 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Service Card Gradient */
+.service-gradient {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+}
+
+/* Testimonial Gradient */
+.testimonial-gradient {
+  background: linear-gradient(180deg, transparent 0%, rgba(124, 58, 237, 0.05) 100%);
+}

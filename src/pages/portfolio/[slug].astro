@@ -1,0 +1,44 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ProjectPageClient from "@/components/pages/ProjectPageClient";
+import { getAllProjects, getProjectBySlug } from "@/data";
+
+export async function getStaticPaths() {
+    const projects = getAllProjects();
+    return projects.map((project) => ({
+        params: { slug: project.slug },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+
+if (!project) {
+    return Astro.redirect("/404");
+}
+
+const title = `${project.titleAr} | مشاريع مسار للتسويق`;
+const description = `${project.descriptionAr} - مشروع ${project.service} لـ ${project.clientAr} في ${project.city}. شاهد النتائج والتفاصيل.`;
+
+// JSON-LD
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: project.titleAr,
+    description: project.descriptionAr,
+    author: {
+        "@type": "Organization",
+        name: "مسار للتسويق",
+    },
+    publisher: {
+        "@type": "Organization",
+        name: "مسار للتسويق",
+        url: "https://www.masarmkt2030.online",
+    },
+};
+---
+
+<Layout title={title} description={description}>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <ProjectPageClient project={project} client:load />
+</Layout>

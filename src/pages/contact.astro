@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ContactPageClient from "@/components/pages/ContactPageClient";
+
+const title = "تواصل معنا | استشارة مجانية";
+const description =
+    "تواصل مع فريق مسار للتسويق للحصول على استشارة مجانية. نرد خلال ساعات قليلة. واتساب، هاتف، أو نموذج التواصل. نخدم جميع المدن السعودية.";
+---
+
+<Layout title={title} description={description}>
+    <ContactPageClient client:load />
+</Layout>

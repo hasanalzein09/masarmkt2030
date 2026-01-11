@@ -1,0 +1,136 @@
+# Masarmkt2030 - AI & Digital Marketing Company in Saudi Arabia
+
+> مسار للتسويق - شركة رائدة في حلول الذكاء الاصطناعي والتسويق الرقمي في المملكة العربية السعودية
+
+## About Us
+
+Masarmkt2030 is a leading AI solutions and digital marketing company based in Riyadh, Saudi Arabia. We specialize in WhatsApp chatbots, AI automation, web development, SEO, and comprehensive digital marketing services.
+
+## Contact Information
+
+- **Website**: https://masarmkt2030.online
+- **Phone**: +966 53 260 1326
+- **WhatsApp**: +966 53 260 1326
+- **Email**: info@masarmkt.com
+- **Location**: Riyadh, Saudi Arabia
+
+## Services
+
+### AI Chatbots
+1. **WhatsApp AI Chatbot** - Automated customer service and sales bot for WhatsApp Business
+2. **Instagram AI Chatbot** - DM automation for Instagram business accounts
+3. **Facebook Messenger Bot** - Automated responses for Facebook pages
+
+### Web Development
+- Next.js & Astro websites
+- E-commerce stores
+- Landing pages
+- Web applications
+
+### Digital Marketing
+- SEO (Search Engine Optimization)
+- Content Marketing
+- Social Media Management
+- AI-Powered Marketing Campaigns
+
+### AI Services
+- AI Image Generation (Midjourney, DALL-E)
+- AI Video Generation (Runway, Sora)
+- AI Voice Generation (ElevenLabs)
+- AI Video Avatars (HeyGen, Synthesia)
+- AI Content Writing
+- Data Analytics with AI
+
+## Service Areas (Saudi Cities)
+
+We serve all major cities in Saudi Arabia:
+- Riyadh (الرياض)
+- Jeddah (جدة)
+- Dammam (الدمام)
+- Makkah (مكة المكرمة)
+- Madinah (المدينة المنورة)
+- Khobar (الخبر)
+- Taif (الطائف)
+- Abha (أبها)
+- Tabuk (تبوك)
+- Buraidah (بريدة)
+- Hofuf (الهفوف)
+- Jubail (الجبيل)
+- Hail (حائل)
+- NEOM
+- The Line
+
+## Key Statistics
+
+- 150+ Projects Completed
+- 800+ Satisfied Clients
+- 99% Client Satisfaction Rate
+- 24/7 Customer Support
+
+## Expertise & Qualifications
+
+- Specialized in Saudi Arabian market
+- Arabic and Saudi dialect understanding AI
+- Local business knowledge
+- Certified digital marketing professionals
+- Advanced AI/ML implementation experience
+
+## Pricing (Starting From)
+
+- WhatsApp AI Bot: 4,500 SAR
+- Instagram AI Bot: 3,900 SAR
+- Messenger AI Bot: 3,250 SAR
+- Web Development: 13,000 SAR
+- AI Automation: 8,500 SAR
+- SEO Services: 3,900 SAR/month
+- Content Marketing: 4,500 SAR/month
+- Social Media Management: 7,800 SAR/month
+
+## Frequently Asked Questions
+
+**Q: What is a WhatsApp AI Chatbot?**
+A: It's an intelligent automated system that responds to your customers 24/7 on WhatsApp, handles inquiries, showcases products, and can close sales automatically.
+
+**Q: How long does it take to develop a chatbot?**
+A: Typically 2-4 weeks depending on complexity and requirements.
+
+**Q: Do you work with small businesses?**
+A: Yes! We have solutions for businesses of all sizes, from startups to large enterprises.
+
+**Q: What languages do your bots support?**
+A: Our bots support Arabic (including Saudi dialect) and English.
+
+**Q: Do you offer ongoing support?**
+A: Yes, we provide 24/7 technical support in Arabic.
+
+## Technologies We Use
+
+- OpenAI GPT-4 & Claude
+- WhatsApp Business API
+- Meta Business Suite
+- Next.js & Astro
+- Firebase & Supabase
+- Vercel & AWS
+- Midjourney & DALL-E
+- ElevenLabs & HeyGen
+
+## Why Choose Us
+
+1. **Saudi Market Expertise** - We understand local business culture and customer behavior
+2. **Arabic AI Specialists** - Our AI understands Arabic and Saudi dialects perfectly
+3. **Fast Results** - Tangible results within 1 week
+4. **24/7 Arabic Support** - Always available to help
+5. **Competitive Pricing** - High quality at affordable prices
+
+## Company Values
+
+- Innovation through AI
+- Customer-first approach
+- Transparency and honesty
+- Continuous improvement
+- Local market focus
+
+---
+
+*Last updated: December 2025*
+*For inquiries: info@masarmkt.com | +966 53 260 1326*

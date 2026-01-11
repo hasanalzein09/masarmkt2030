@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroSection from "../components/sections/HeroSection";
+import ServicesSection from "../components/sections/ServicesSection";
+import WhyChooseUsSection from "../components/sections/WhyChooseUsSection";
+import FeaturedProjectsSection from "../components/sections/FeaturedProjectsSection";
+import CitiesSection from "../components/sections/CitiesSection";
+import FAQSection from "../components/sections/FAQSection";
+import CTASection from "../components/sections/CTASection";
+import WhatsAppButton from "../components/WhatsAppButton";
+import LiveChatWidget from "../components/LiveChatWidget";
+import { siteConfig } from "../config/site";
+
+const title =
+	"مسار للتسويق | بوتات واتساب ذكية وتسويق رقمي احترافي في السعودية";
+const description =
+	"الشركة الرائدة في السعودية لخدمات التسويق الرقمي، بوتات الواتساب الذكية، صناعة المحتوى، وإدارة حسابات التواصل. نخدم الرياض وجدة والدمام ومكة والمدينة والخبر والطائف وأبها وتبوك وبريدة. خصم 30% على جميع الخدمات!";
+---
+
+<Layout title={title} description={description}>
+	<HeroSection client:load />
+	<ServicesSection client:load />
+	<WhyChooseUsSection client:load />
+	<FeaturedProjectsSection client:load />
+	<CitiesSection client:load />
+	<FAQSection client:load />
+	<CTASection client:load />
+	<WhatsAppButton client:load />
+	<LiveChatWidget client:load />
+</Layout>

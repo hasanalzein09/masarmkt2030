@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PricingDetailPageClient from "@/components/pages/PricingDetailPageClient";
+import { pricingPages } from "@/config/pricing";
+
+export async function getStaticPaths() {
+    return pricingPages.map((pricing) => ({
+        params: { slug: pricing.slug },
+        props: { pricing },
+    }));
+}
+
+const { pricing } = Astro.props;
+
+if (!pricing) {
+    return Astro.redirect("/404");
+}
+
+const title = `${pricing.titleAr} | باقات مسار للتسويق`;
+const description = `${pricing.introAr}. احصل على أفضل قيمة مقابل سعر لمشروعك.`;
+---
+
+<Layout title={title} description={description}>
+    <PricingDetailPageClient pricing={pricing} client:load />
+</Layout>

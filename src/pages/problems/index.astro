@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ProblemsPageClient from "@/components/pages/ProblemsPageClient";
+
+const title = "المشاكل والحلول | كيف نساعدك على النمو";
+const description =
+    "هل تواجه مشاكل في مبيعاتك أو خدمة عملائك؟ شاهد كيف تحل حلولنا التقنية والذكاء الاصطناعي هذه المشاكل وتزيد من أرباحك.";
+---
+
+<Layout title={title} description={description}>
+    <ProblemsPageClient client:load />
+</Layout>

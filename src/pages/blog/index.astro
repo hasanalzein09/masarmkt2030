@@ -1,0 +1,169 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { blogPosts, blogCategories } from "../../config/blog";
+
+const title = "مدونة مسار للتسويق | مقالات التسويق الرقمي والذكاء الاصطناعي";
+const description = "مقالات متخصصة في التسويق الرقمي، تحسين محركات البحث، بوتات واتساب، التجارة الإلكترونية، وأحدث تقنيات الذكاء الاصطناعي للأعمال السعودية";
+
+// Sort posts by date (newest first)
+const sortedPosts = [...blogPosts].sort((a, b) => 
+  new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+);
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-violet-900/20 via-gray-900 to-purple-900/20"></div>
+    <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center max-w-4xl mx-auto">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 text-violet-400 text-sm font-medium mb-6">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+          </span>
+          مقالات جديدة كل أسبوع
+        </span>
+        
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <span class="text-white">مدونة </span>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-purple-400">مسار للتسويق</span>
+        </h1>
+        
+        <p class="text-xl text-gray-400 leading-relaxed">
+          أحدث المقالات والنصائح في التسويق الرقمي، SEO، 
+          التجارة الإلكترونية، والذكاء الاصطناعي للأعمال السعودية
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="py-8 border-b border-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/blog" class="px-4 py-2 rounded-full bg-violet-500/20 text-violet-400 font-medium text-sm hover:bg-violet-500/30 transition-colors">
+          الكل
+        </a>
+        {blogCategories.slice(0, 6).map(cat => (
+          <a href={`/blog/category/${cat.slug}`} class="px-4 py-2 rounded-full bg-gray-800 text-gray-400 font-medium text-sm hover:bg-gray-700 hover:text-white transition-colors">
+            {cat.icon} {cat.nameAr}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Posts Grid -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedPosts.map((post, index) => {
+          const category = blogCategories.find(c => c.id === post.category);
+          return (
+            <article class={`group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-violet-500/50 transition-all duration-300 ${index === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}>
+              <!-- Image placeholder -->
+              <div class={`relative ${index === 0 ? 'h-64' : 'h-48'} bg-gradient-to-br from-violet-600/20 to-purple-600/20 overflow-hidden`}>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="text-6xl">{category?.icon || '📝'}</span>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                
+                <!-- Category badge -->
+                <div class="absolute top-4 right-4">
+                  <span class="px-3 py-1 rounded-full bg-violet-500/80 text-white text-xs font-medium">
+                    {category?.nameAr || 'مقالة'}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <!-- Meta -->
+                <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                  <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    {new Date(post.publishDate).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    {post.readTime} دقائق
+                  </span>
+                </div>
+                
+                <!-- Title -->
+                <h2 class={`font-bold text-white mb-3 group-hover:text-violet-400 transition-colors line-clamp-2 ${index === 0 ? 'text-2xl' : 'text-xl'}`}>
+                  <a href={`/blog/${post.slug}`} class="hover:text-violet-400">
+                    {post.titleAr}
+                  </a>
+                </h2>
+                
+                <!-- Excerpt -->
+                <p class="text-gray-400 text-sm leading-relaxed line-clamp-3 mb-4">
+                  {post.excerptAr}
+                </p>
+                
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {post.tags.slice(0, 3).map(tag => (
+                    <span class="px-2 py-1 text-xs bg-gray-800 text-gray-400 rounded">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                
+                <!-- Read more -->
+                <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-2 text-violet-400 font-medium text-sm hover:gap-3 transition-all">
+                  اقرأ المقال
+                  <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 border-t border-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">
+          تبي تتصدر نتائج البحث؟ 🚀
+        </h2>
+        <p class="text-gray-400 mb-8">
+          فريقنا جاهز يساعدك تحقق أهدافك التسويقية. استشارة مجانية بدون أي التزام!
+        </p>
+        <a href="/contact" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all">
+          احجز استشارتك المجانية
+          <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

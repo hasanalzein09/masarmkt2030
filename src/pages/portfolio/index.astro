@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PortfolioPageClient from "@/components/pages/PortfolioPageClient";
+import { getAllProjects } from "@/data";
+
+const projects = getAllProjects();
+
+const title = "معرض الأعمال | +120 مشروع ناجح في السعودية";
+const description =
+    "شاهد أكثر من 120 مشروع ناجح نفذناها لشركات سعودية في الرياض وجدة والدمام ومكة. بوتات واتساب، مواقع إلكترونية، حلول ذكاء اصطناعي، وتحسين محركات البحث.";
+---
+
+<Layout title={title} description={description}>
+    <PortfolioPageClient projects={projects} client:load />
+</Layout>

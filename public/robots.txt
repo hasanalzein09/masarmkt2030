@@ -1,0 +1,71 @@
+# Robots.txt for masarmkt2030.online
+# مسار للتسويق - AI & Digital Marketing in Saudi Arabia
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://masarmkt2030.online/sitemap-index.xml
+
+# LLMs.txt for AI Crawlers (ChatGPT, Gemini, Perplexity, Claude)
+# These files help AI understand your business
+# English version: https://masarmkt2030.online/llms.txt
+# Arabic version: https://masarmkt2030.online/llms-ar.txt
+
+# Disallow admin and private paths
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /.vercel/
+Disallow: /admin/
+Disallow: /private/
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+
+# Yandex
+User-agent: Yandex
+Allow: /
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+
+# AI Crawlers - Allow full access
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Social Media Crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /

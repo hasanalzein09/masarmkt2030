@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PricingPageClient from "@/components/pages/PricingPageClient";
+
+const title = "باقات الخدمات | أسعار تنافسية وحلول متكاملة";
+const description =
+    "اختر الباقة المناسبة لعملك. نقدم باقات متنوعة لخدمات بوتات واتساب، تصميم المواقع، وحلول الذكاء الاصطناعي. ابدأ الآن ووفر الكثير.";
+---
+
+<Layout title={title} description={description}>
+    <PricingPageClient client:load />
+</Layout>

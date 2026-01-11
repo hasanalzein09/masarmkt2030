@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { statisticsPages } from "@/config/statistics";
+
+const title = "إحصائيات السوق الرقمي | أرقام وحقائق تهم مشروعك";
+const description =
+    "اكتشف أحدث إحصائيات السوق الرقمي في السعودية، بوتات واتساب، التجارة الإلكترونية، والذكاء الاصطناعي. بيانات مبنية على دراسات دقيقة.";
+---
+
+<Layout title={title} description={description}>
+    <main class="min-h-screen bg-black text-white">
+        {/* Hero */}
+        <section class="relative py-20 overflow-hidden">
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-teal-900/20"
+            >
+            </div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        أرقام <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-600"
+                            >تغير نظرتك</span
+                        > للسوق
+                    </h1>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        إحصائيات دقيقة عن السوق السعودي والذكاء الاصطناعي وأتمتة
+                        الأعمال
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        {/* Stats Categories */}
+        <section class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {
+                        statisticsPages.map((stat) => (
+                            <a
+                                key={stat.id}
+                                href={`/statistics/${stat.slug}`}
+                                class="group bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 border border-gray-700 hover:border-cyan-500/50 transition-all hover:-translate-y-2 h-full flex flex-col"
+                            >
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="text-4xl">📊</span>
+                                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-bold">
+                                        {stat.year}
+                                    </span>
+                                </div>
+                                <h2 class="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition-colors">
+                                    {stat.titleAr}
+                                </h2>
+                                <p class="text-gray-400 text-sm mb-6 flex-grow">
+                                    {stat.introAr}
+                                </p>
+                                <div class="flex items-center justify-between mt-auto">
+                                    <span class="text-cyan-500 font-medium">
+                                        شوف الإحصائيات ←
+                                    </span>
+                                    <span class="text-gray-500 text-xs">
+                                        {stat.stats?.length || 0} فئات
+                                    </span>
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        {/* CTA */}
+        <section class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                    محتاج إحصائيات مخصصة؟
+                </h2>
+                <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+                    نوفر دراسات سوق مخصصة لمشروعك تساعدك في اتخاذ أذكى القرارات
+                    المبنية على البيانات وتوقع العائد على الاستثمار.
+                </p>
+                <a
+                    href="/contact"
+                    class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:scale-105 transition-transform"
+                >
+                    اطلب دراسة سوق
+                </a>
+            </div>
+        </section>
+    </main>
+</Layout>

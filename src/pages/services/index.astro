@@ -1,0 +1,13 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ServicesPageClient from "@/components/pages/ServicesPageClient";
+
+const title =
+    "خدماتنا | مسار للتسويق - حلول الذكاء الاصطناعي والأتمتة في السعودية";
+const description =
+    "اكتشف خدماتنا المتكاملة: بوتات واتساب وانستجرام وماسنجر الذكية، تصميم المواقع، الأتمتة بالذكاء الاصطناعي، وتحسين محركات البحث SEO. خدمات احترافية في الرياض وجدة والدمام ومكة.";
+---
+
+<Layout title={title} description={description}>
+    <ServicesPageClient client:load />
+</Layout>

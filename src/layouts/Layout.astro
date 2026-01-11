@@ -1,0 +1,271 @@
+---
+import { siteConfig } from "../config/site";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
+import "../app/globals.css"; // I will copy or symlink this later
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title, description = siteConfig.description } = Astro.props;
+const siteTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.url);
+
+// Centralized JSON-LD for the whole site
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"@id": `${siteConfig.url}/#organization`,
+	name: siteConfig.nameAr,
+	url: siteConfig.url,
+	logo: siteConfig.logo,
+	sameAs: [
+		siteConfig.social.facebook,
+		siteConfig.social.instagram,
+		siteConfig.social.twitter,
+		siteConfig.social.linkedin,
+		siteConfig.social.tiktok,
+	].filter(Boolean),
+	contactPoint: {
+		"@type": "ContactPoint",
+		telephone: siteConfig.contact.phoneClean,
+		contactType: "customer service",
+		areaServed: "SA",
+		availableLanguage: ["Arabic", "English"],
+	},
+};
+
+const localBusinessSchema = {
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	"@id": `${siteConfig.url}/#localbusiness`,
+	name: siteConfig.nameAr,
+	image: siteConfig.logo,
+	url: siteConfig.url,
+	telephone: siteConfig.contact.phoneClean,
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: siteConfig.contact.address,
+		addressLocality: "Riyadh",
+		addressRegion: "Riyadh",
+		addressCountry: "SA",
+	},
+	geo: {
+		"@type": "GeoCoordinates",
+		latitude: "24.7136",
+		longitude: "46.6753",
+	},
+	openingHoursSpecification: {
+		"@type": "OpeningHoursSpecification",
+		dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
+		opens: "09:00",
+		closes: "18:00",
+	},
+	areaServed: siteConfig.cities.map((city) => ({
+		"@type": "City",
+		name: city.nameAr,
+		sameAs: `https://ar.wikipedia.org/wiki/${encodeURIComponent(city.nameAr)}`,
+	})),
+	knowsAbout: [
+		"الذكاء الاصطناعي",
+		"واتساب شات بوت",
+		"تسويق رقمي",
+		"أتمتة الأعمال",
+		"تطوير مواقع",
+	],
+	aggregateRating: {
+		"@type": "AggregateRating",
+		ratingValue: "4.9",
+		reviewCount: "150",
+		bestRating: "5",
+		worstRating: "1",
+	},
+};
+
+// WebSite Schema for Search Engine Optimization
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"@id": `${siteConfig.url}/#website`,
+	url: siteConfig.url,
+	name: siteConfig.nameAr,
+	description: siteConfig.description,
+	publisher: {
+		"@id": `${siteConfig.url}/#organization`,
+	},
+	inLanguage: "ar-SA",
+	potentialAction: {
+		"@type": "SearchAction",
+		target: {
+			"@type": "EntryPoint",
+			urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
+		},
+		"query-input": "required name=search_term_string",
+	},
+};
+
+// Speakable Schema for Voice Assistants (AEO)
+const speakableSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebPage",
+	"@id": canonicalURL.toString(),
+	name: siteTitle,
+	speakable: {
+		"@type": "SpeakableSpecification",
+		cssSelector: ["h1", ".hero-content", ".service-description"],
+	},
+	url: canonicalURL.toString(),
+};
+
+// Professional Service Schema
+const professionalServiceSchema = {
+	"@context": "https://schema.org",
+	"@type": "ProfessionalService",
+	"@id": `${siteConfig.url}/#service`,
+	name: siteConfig.nameAr,
+	description:
+		"شركة رائدة في حلول الذكاء الاصطناعي وبوتات واتساب والتسويق الرقمي في السعودية",
+	url: siteConfig.url,
+	telephone: siteConfig.contact.phoneClean,
+	priceRange: "$$",
+	serviceType: [
+		"WhatsApp Chatbot Development",
+		"AI Automation",
+		"Digital Marketing",
+		"Web Development",
+		"SEO Services",
+	],
+	areaServed: {
+		"@type": "Country",
+		name: "Saudi Arabia",
+	},
+	hasOfferCatalog: {
+		"@type": "OfferCatalog",
+		name: "خدماتنا",
+		itemListElement: [
+			{
+				"@type": "Offer",
+				itemOffered: {
+					"@type": "Service",
+					name: "واتساب AI شات بوت",
+					description: "بوت ذكي يرد على عملائك 24/7",
+				},
+			},
+			{
+				"@type": "Offer",
+				itemOffered: {
+					"@type": "Service",
+					name: "تطوير مواقع Next.js",
+					description: "مواقع سريعة ومتوافقة مع SEO",
+				},
+			},
+		],
+	},
+};
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{siteTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- AEO/GEO Meta Tags -->
+		<meta
+			name="robots"
+			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+		/>
+		<meta name="googlebot" content="index, follow" />
+		<meta name="bingbot" content="index, follow" />
+		<meta name="author" content="مسار للتسويق" />
+		<meta name="geo.region" content="SA" />
+		<meta name="geo.placename" content="Riyadh, Saudi Arabia" />
+		<meta name="language" content="Arabic" />
+		<meta name="revisit-after" content="7 days" />
+		<meta name="rating" content="general" />
+
+		<!-- Structured Data - Organization -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(organizationSchema)}
+		/>
+		<!-- Structured Data - LocalBusiness -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(localBusinessSchema)}
+		/>
+		<!-- Structured Data - WebSite -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(websiteSchema)}
+		/>
+		<!-- Structured Data - Speakable (AEO) -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(speakableSchema)}
+		/>
+		<!-- Structured Data - ProfessionalService -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(professionalServiceSchema)}
+		/>
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={siteTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL("/og.svg", Astro.url)} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={siteTitle} />
+		<meta property="twitter:description" content={description} />
+		<meta
+			property="twitter:image"
+			content={new URL("/og.svg", Astro.url)}
+		/>
+
+		<link rel="manifest" href="/manifest.json" />
+
+		<!-- Microsoft Clarity -->
+		<script type="text/javascript">
+			(function (c, l, a, r, i, t, y) {
+				c[a] =
+					c[a] ||
+					function () {
+						(c[a].q = c[a].q || []).push(arguments);
+					};
+				t = l.createElement(r);
+				t.async = 1;
+				t.src = "https://www.clarity.ms/tag/" + i;
+				y = l.getElementsByTagName(r)[0];
+				y.parentNode.insertBefore(t, y);
+			})(window, document, "clarity", "script", "uoq49thu76");
+		</script>
+	</head>
+	<body
+		class="font-cairo antialiased bg-gray-950 text-gray-50 selection:bg-violet-500/30"
+	>
+		<Header client:load />
+		<main class="flex-1 pt-20">
+			<slot />
+		</main>
+		<Footer client:load />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--font-cairo: "Cairo", sans-serif;
+		--font-tajawal: "Tajawal", sans-serif;
+	}
+</style>

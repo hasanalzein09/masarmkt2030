@@ -1,0 +1,141 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ServiceCityPageClient from "@/components/pages/ServiceCityPageClient";
+import { saudiCities, getCityById } from "@/data/saudi-cities-full";
+import {
+    serviceKeywords,
+    getServiceKeywordById,
+    generateServiceCityFAQ,
+    generateServiceCityKeywords,
+} from "@/config/seo-keywords";
+import { services, siteConfig } from "@/config/site";
+
+export async function getStaticPaths() {
+    const paths = [];
+
+    // لتقليل وقت البناء، يمكننا تحديد أهم الخدمات أو المدن أولاً،
+    // ولكن بما أن المهمة هي "نسخ الموقع"، سنقوم بتوليد الكل.
+    // ملاحظة: قد يستغرق هذا وقتاً طويلاً إذا كان عدد التباديل كبيراً.
+    // سأقتصر حالياً على الخدمات الرئيسية والمدن ذات الأولوية العالية لضمان نجاح المعاينة.
+
+    const priorityCities = saudiCities.filter((c) => c.priority <= 2);
+    const mainServices = serviceKeywords;
+
+    for (const service of mainServices) {
+        for (const city of priorityCities) {
+            paths.push({
+                params: { service: service.id, city: city.id },
+                props: { serviceId: service.id, cityId: city.id },
+            });
+        }
+    }
+
+    return paths;
+}
+
+const { serviceId, cityId } = Astro.props;
+
+const cityData = getCityById(cityId);
+const serviceData = getServiceKeywordById(serviceId);
+
+if (!cityData || !serviceData) {
+    return Astro.redirect("/404");
+}
+
+const faqs = generateServiceCityFAQ(serviceData.nameAr, cityData.nameAr);
+const fullServiceData = services.find(
+    (s) => s.slug === serviceId || s.id === serviceId,
+);
+const nearbyCities = saudiCities
+    .filter((c) => c.region === cityData.region && c.id !== cityData.id)
+    .slice(0, 6);
+
+const title = `${serviceData.nameAr} في ${cityData.nameAr} | أفضل شركة ${serviceData.shortName} ${cityData.nameAr} 2025`;
+const description = `أفضل خدمات ${serviceData.nameAr} في ${cityData.nameAr}. نقدم حلول ${serviceData.nameAr} احترافية للشركات والمؤسسات في ${cityData.nameAr} و${cityData.regionAr}. احصل على استشارة مجانية وعرض سعر خاص!`;
+
+// JSON-LD for Breadcrumbs and LocalBusiness
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        {
+            "@type": "ListItem",
+            position: 1,
+            name: "الرئيسية",
+            item: siteConfig.url,
+        },
+        {
+            "@type": "ListItem",
+            position: 2,
+            name: serviceData.nameAr,
+            item: `${siteConfig.url}/services/${serviceId}`,
+        },
+        {
+            "@type": "ListItem",
+            position: 3,
+            name: `${serviceData.nameAr} في ${cityData.nameAr}`,
+            item: `${siteConfig.url}/services/by-city/${serviceId}/${cityId}`,
+        },
+    ],
+};
+
+const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${siteConfig.url}/services/by-city/${serviceId}/${cityId}#localbusiness`,
+    name: `مسار للتسويق - ${serviceData.nameAr} ${cityData.nameAr}`,
+    description: `أفضل خدمات ${serviceData.nameAr} في ${cityData.nameAr}. حلول احترافية متكاملة.`,
+    url: `${siteConfig.url}/services/by-city/${serviceId}/${cityId}`,
+    telephone: siteConfig.contact.phoneClean,
+    parentOrganization: {
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+    },
+    address: {
+        "@type": "PostalAddress",
+        addressLocality: cityData.nameAr,
+        addressRegion: cityData.regionAr,
+        addressCountry: "SA",
+    },
+    areaServed: {
+        "@type": "City",
+        name: cityData.nameAr,
+        sameAs: `https://ar.wikipedia.org/wiki/${encodeURIComponent(cityData.nameAr)}`,
+    },
+};
+---
+
+<Layout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(localBusinessSchema)}
+    />
+    <div class="sr-only" aria-hidden="true">
+        <h2>{serviceData.nameAr} في {cityData.nameAr}</h2>
+        <p>
+            نحن في مسار للتسويق نقدم أفضل حلول {serviceData.nameAr} لعملائنا في {
+                cityData.nameAr
+            } بمنطقة {cityData.regionAr}.
+        </p>
+        {
+            faqs.map((faq) => (
+                <div>
+                    <h3>{faq.question}</h3>
+                    <p>{faq.answer}</p>
+                </div>
+            ))
+        }
+    </div>
+    <ServiceCityPageClient
+        city={cityData}
+        service={serviceData}
+        fullService={fullServiceData}
+        faqs={faqs}
+        nearbyCities={nearbyCities}
+        client:load
+    />
+</Layout>

@@ -1,0 +1,89 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ProblemPageClient from "@/components/pages/ProblemPageClient";
+import { problemsSolutions } from "@/config/problems-solutions";
+import { siteConfig } from "@/config/site";
+
+export async function getStaticPaths() {
+    return problemsSolutions.map((problem) => {
+        const relatedProblems = problemsSolutions.filter(
+            (p) => p.category === problem.category && p.id !== problem.id,
+        );
+        return {
+            params: { slug: problem.slug },
+            props: { problem, relatedProblems },
+        };
+    });
+}
+
+const { problem, relatedProblems } = Astro.props;
+
+if (!problem) {
+    return Astro.redirect("/404");
+}
+
+const title = `${problem.problemAr} | حلول مسار للتسويق`;
+const description = `${problem.shortDescAr}. حلول عملية ونتائج مضمونة لمشروعك.`;
+
+// JSON-LD for Problems and Breadcrumbs
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        {
+            "@type": "ListItem",
+            position: 1,
+            name: "الرئيسية",
+            item: siteConfig.url,
+        },
+        {
+            "@type": "ListItem",
+            position: 2,
+            name: "المشاكل والحلول",
+            item: `${siteConfig.url}/problems`,
+        },
+        {
+            "@type": "ListItem",
+            position: 3,
+            name: problem.problemAr,
+            item: `${siteConfig.url}/problems/${problem.slug}`,
+        },
+    ],
+};
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+        {
+            "@type": "Question",
+            name: `كيف يمكن حل مشكلة ${problem.problemAr}؟`,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: problem.solutionAr,
+            },
+        },
+        ...problem.steps.map((step) => ({
+            "@type": "Question",
+            name: step.titleAr,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: step.descAr,
+            },
+        })),
+    ],
+};
+---
+
+<Layout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <ProblemPageClient
+        problem={problem}
+        relatedProblems={relatedProblems}
+        client:load
+    />
+</Layout>

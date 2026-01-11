@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#gradient)"/>
+  <!-- Letter M for Masar -->
+  <path d="M160 340V172L256 260L352 172V340H312V240L256 296L200 240V340H160Z" fill="white"/>
+  <!-- Rocket icon -->
+  <path d="M256 120C256 120 280 140 280 180C280 200 270 220 256 240C242 220 232 200 232 180C232 140 256 120 256 120Z" fill="white" opacity="0.9"/>
+  <circle cx="256" cy="170" r="12" fill="url(#gradient)"/>
+</svg>

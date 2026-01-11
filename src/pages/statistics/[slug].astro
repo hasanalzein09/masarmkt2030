@@ -1,0 +1,77 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import StatisticsPageClient from "@/components/pages/StatisticsPageClient";
+import { statisticsPages, statisticsCategories } from "@/config/statistics";
+import { siteConfig } from "@/config/site";
+
+export async function getStaticPaths() {
+    return statisticsPages.map((stat) => ({
+        params: { slug: stat.slug },
+        props: { stat },
+    }));
+}
+
+const { stat } = Astro.props;
+
+if (!stat || !stat.stats) {
+    return Astro.redirect("/404");
+}
+
+const category = statisticsCategories.find((c) => c.id === stat.category);
+
+const title = `${stat.titleAr} | إحصائيات مسار للتسويق ${stat.year}`;
+const description = `${stat.introAr}. تعرف على أحدث الأرقام والحقائق في ${stat.titleAr}.`;
+
+// JSON-LD for Stats and Breadcrumbs
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        {
+            "@type": "ListItem",
+            position: 1,
+            name: "الرئيسية",
+            item: siteConfig.url,
+        },
+        {
+            "@type": "ListItem",
+            position: 2,
+            name: "الإحصائيات",
+            item: `${siteConfig.url}/statistics`,
+        },
+        {
+            "@type": "ListItem",
+            position: 3,
+            name: stat.titleAr,
+            item: `${siteConfig.url}/statistics/${stat.slug}`,
+        },
+    ],
+};
+
+const datasetSchema = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: stat.titleAr,
+    description: stat.introAr,
+    url: `${siteConfig.url}/statistics/${stat.slug}`,
+    creator: {
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+    },
+    variableMeasured: stat.stats.map((s) => s.category),
+    datePublished: stat.lastUpdated,
+    keywords: stat.keywordsAr,
+};
+---
+
+<Layout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(datasetSchema)}
+    />
+    <StatisticsPageClient stat={stat} category={category} client:load />
+</Layout>
